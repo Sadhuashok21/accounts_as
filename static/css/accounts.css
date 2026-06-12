@@ -1,0 +1,204 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    overflow-y: hidden;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+
+
+.as {
+    width: 20px;
+    height: 20px;
+}
+
+
+.bg_img {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 101vh;
+    width: 100%;
+}
+
+.form {
+    position: absolute;
+    top: 0px;
+    z-index: 100;
+    display: grid;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    justify-items: center;
+}
+
+
+
+.heading {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+}
+
+h1 {
+    font-size: 18px;
+    text-align: center;
+}
+
+
+.total_form {
+    width: 350px;
+    background-color: whitesmoke;
+    padding: 1.5rem;
+    border-radius: .5rem;
+    
+}
+
+.eye {
+    position: relative;
+    left: 319px;
+    width: 20px;
+    top: -38px;
+    cursor: pointer;
+}
+
+
+.as-eye, .as-eye-slash {
+    display: block;
+}
+
+.as-eye-slash.active, .as-eye.active {
+    display: none;
+}
+
+
+
+.signin-btn {
+    width: 100%;
+    height: 40px;
+    background-color:#00b8db;
+    border-radius: .5rem;
+    color: white;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+
+
+.form input {
+    width: 100%;
+    height: 40px;
+    border-radius: .5rem;
+    border: 1px solid black;
+    margin: 5px;
+    border: none;
+    padding-left: .5rem;
+}
+
+
+.icon {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: .5rem;
+    height: 40px;
+    padding-left: .5rem;
+    background-color: white;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+
+input:focus {
+    outline: none;
+}
+
+label {
+    font-weight: 600;
+}
+
+.forgot {
+    position: relative;
+    left: 220px;
+    text-decoration: none;
+    color: #000;
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+
+
+ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+
+ul li .as {
+    border: 1px solid black;
+    border-radius: 50%;
+    padding: .5rem;
+    cursor: pointer;
+}
+
+.footer {
+    text-align: center;
+    color: white;
+}
+
+.footer a, .footer p {
+    color: white;
+}
+
+
+a {
+    color: black;
+    margin: 2px;
+}
+
+a:hover {
+    color: blue;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+
+
+@media only screen and (max-width: 405px) {
+    .total_form {
+        width: 300px;
+    }
+
+
+    .forgot {
+        left: 150px
+    }
+
+    .eye {
+        left: 270px
+    }
+}

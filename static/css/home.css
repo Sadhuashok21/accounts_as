@@ -1,0 +1,140 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: Sans-Serif;
+    font-size: 16px;
+}
+
+body {
+    background: black;
+    color: white;
+}
+
+
+.as {
+    width: 20px;
+    height: 20px;
+}
+
+.input-container {
+    position: relative;
+    margin: 10px 0;
+    width: 100%;
+}
+
+
+label {
+    position: absolute;
+    left: 5px;
+    top: 10px;
+    padding: 0 5px;
+    color: #000000;
+    font-size: 16px;
+    transition: 0.3s;
+    pointer-events: none;
+}
+
+/* When input is focused or not empty */
+input:focus + label,
+input:not(:placeholder-shown) + label {
+    top: -15px;
+    left: -5px;
+    font-size: 12px;
+    color: #fff;
+}
+
+
+.heading {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+    justify-content: center;
+}
+
+.as-person-circle, .as-lock {
+    background: #00c6ff;
+    color: black;
+    height: 24.5px;
+    padding: .3rem;
+    border-top-left-radius: .5rem;
+    border-bottom-left-radius: .5rem;
+}
+td {
+    display: flex;
+    align-items: center;
+    margin: 2px;
+}
+
+
+
+.container {
+    width: 100vw;
+    height: 65vh;
+    display: grid;
+    align-items: start;
+    justify-content: center
+}
+
+form {
+    border: 1px solid aqua;
+    padding: .5rem;
+    border-radius: .5rem;
+}
+
+table tr td {
+    padding: .1rem;
+}
+
+form input {
+    width: 250px;
+    height: 34px;
+    padding-right: .5rem;
+    padding-left: .5rem;
+    border-top-right-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+    outline: none;
+}
+
+input[type=submit] {
+    background: #00c6ff;
+    border-radius: .5rem;
+    width: 100%;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+
+.eye .as.active {
+    display: none;
+}
+
+.as-eye {
+    cursor: pointer;
+}
+
+.eye {
+    position: relative;
+    right: 35px;
+    top: 3px;
+    color: black;
+    z-index: 100;
+    
+}
+
+p {
+    display: flex;
+    align-items: center;
+}
+
+.container  .content a {
+    color: rgb(0, 242, 255)
+}
+
+.container  .content a:visited {
+    color: red;
+}
+
+.container  .content a:active {
+    color: green;
+}
