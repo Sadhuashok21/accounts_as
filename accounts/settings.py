@@ -11,8 +11,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-import sys
-import os 
+import sys, os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,13 +28,27 @@ sys.path.insert(0, PARENT_DIR)
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+@4zt%aa2-edon)^(--sog86g1z2#0-n)n$e#(k3o^u-bv#o8#'
+
+SECRET_KEY = os.getenv("SESSION_SECRET_KEY")
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_DOMAIN = os.getenv("SESSION_COOKIE_DOMAIN")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_HOST = "mail.ascentracoresolutions.com"
+EMAIL_PORT = 587
+
+EMAIL_HOST_USER = os.getenv("EMAIL_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")
+
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 
 # Application definition
 
@@ -43,7 +59,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'shared_lib'
+    'shared_lib',
+    'shared_lib.sfs_core'
 ]
 
 MIDDLEWARE = [
@@ -74,9 +91,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'accounts.wsgi.application'
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-SECRET_KEY = 'ashok-super-secret-key'
-SESSION_COOKIE_DOMAIN = '127.0.0.1'
+
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -84,13 +99,15 @@ SESSION_COOKIE_DOMAIN = '127.0.0.1'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'as_main',
-        'HOST': 'localhost',
-        'PASSWORD': 'Ashokkumar21',
-        'USER': 'root',
-        'PORT': '3306',
+        'NAME': os.getenv("DB_NAME"),
+        'HOST': os.getenv("DB_HOST"),
+        'PASSWORD': os.getenv("DB_PASSWORD"),
+        'USER': os.getenv("DB_USER"),
+        'PORT': os.getenv("DB_PORT"),
     }
 }
+
+AUTH_USER_MODEL = "sfs_core.AllUsers"
 
 
 # Password validation

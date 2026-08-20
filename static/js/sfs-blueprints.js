@@ -1,0 +1,124 @@
+ 
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+  import {
+    getAuth,
+    GoogleAuthProvider,
+    GithubAuthProvider,
+    signInWithPopup,
+    signOut,
+    onAuthStateChanged,
+    fetchSignInMethodsForEmail,
+    linkWithCredential
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  // 🔥 Your Firebase config
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyAvBa5bK5HXoo3pbciYV9A7W8AQTvCzPuE",
+    authDomain: "sfs-blueprints-21.firebaseapp.com",
+    projectId: "sfs-blueprints-21",
+    storageBucket: "sfs-blueprints-21.firebasestorage.app",
+    messagingSenderId: "550104831070",
+    appId: "1:550104831070:web:fc2c73ae565b6e0f6350cf",
+    measurementId: "G-HZTPYKWVBR"
+  };
+
+    // ✅ Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Providers
+    const googleProvider = new GoogleAuthProvider();
+    const githubProvider = new GithubAuthProvider();
+    githubProvider.addScope("user:email");
+
+    // UI
+    const googleBtn = document.getElementById("googleLogin");
+    const githubBtn = document.getElementById("githubLogin");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const userText = document.getElementById("user");
+
+    // ========================
+    // 🔵 GOOGLE LOGIN
+    // ========================
+    googleBtn.onclick = async () => {
+      try {
+        const result = await signInWithPopup(auth, googleProvider);
+        userText.innerText = "Google: " + result.user.displayName;
+      } catch (error) {
+        handleAuthError(error);
+      }
+    };
+
+    // ========================
+    // 🐙 GITHUB LOGIN
+    // ========================
+    githubBtn.onclick = async () => {
+      try {
+        const result = await signInWithPopup(auth, githubProvider);
+        userText.innerText = "GitHub: " + result.user.displayName;
+      } catch (error) {
+        handleAuthError(error);
+      }
+    };
+
+    // ========================
+    // 🔗 ACCOUNT LINKING LOGIC
+    // ========================
+    async function handleAuthError(error) {
+      if (error.code === "auth/account-exists-with-different-credential") {
+
+        const email = error.customData.email;
+        const pendingCredential =
+          GithubAuthProvider.credentialFromError(error) ||
+          GoogleAuthProvider.credentialFromError(error);
+
+        const methods = await fetchSignInMethodsForEmail(auth, email);
+
+        alert("Account exists with: " + methods[0]);
+
+        // 👉 If Google account exists
+        if (methods[0] === "google.com") {
+
+          const result = await signInWithPopup(auth, googleProvider);
+
+          await linkWithCredential(result.user, pendingCredential);
+
+          userText.innerText = "Accounts linked (Google + GitHub)";
+        }
+
+        // 👉 If GitHub account exists
+        else if (methods[0] === "github.com") {
+
+          const result = await signInWithPopup(auth, githubProvider);
+
+          await linkWithCredential(result.user, pendingCredential);
+
+          userText.innerText = "Accounts linked (GitHub + Google)";
+        }
+
+      } else {
+        console.error("Auth Error:", error);
+      }
+    }
+
+    // ========================
+    // 🚪 LOGOUT
+    // ========================
+    logoutBtn.onclick = () => {
+      signOut(auth);
+    };
+
+    // ========================
+    // 👀 AUTH STATE
+    // ========================
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        userText.innerText =
+          "Logged in: " + user.displayName + " (" + user.providerData[0].providerId + ")";
+      } else {
+        userText.innerText = "Not logged in";
+      }
+    });
+
